@@ -22,7 +22,7 @@ if (ageElement) {
 
 const moodUsername = "VeightAdmin";
 const moodPassword = "ZipJeStrasneGay123_";
-const spotifyApiUrl = "";
+const spotifyApiUrl = "https://veighttheavaligithubio.vercel.app/api/now-playing";
 const moodElement = document.querySelector("#mood");
 const profilePicture = document.querySelector("#profilePicture");
 const listeningElement = document.querySelector(".listening-status span");
