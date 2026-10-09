@@ -1,7 +1,31 @@
-const S=[["konnichiwa","dobrý den"],["arigatou","děkuji"],["sumimasen","promiňte"],["ohayou","dobré ráno"],["sayounara","na shledanou"],["hai","ano"],["iie","ne"]];
-const W=[["mizu","voda"],["taberu","jíst"],["nomu","pít"],["nihon","Japonsko"],["gakkou","škola"],["tomodachi","kamarád"],["sensei","učitel"],["ookii","velký"],["chiisai","malý"],["kyou","dnes"],["ashita","zítra"],["iku","jít"],["miru","vidět"]];
-const mk=a=>a.map(([ro,cs])=>({ro,cs}));
-const $=id=>document.getElementById(id);
+const S = [
+  ["konnichiwa", "dobrý den"],
+  ["arigatou", "děkuji"],
+  ["sumimasen", "promiňte"],
+  ["ohayou", "dobré ráno"],
+  ["sayounara", "na shledanou"],
+  ["hai", "ano"],
+  ["iie", "ne"]
+];
+
+const W = [
+  ["mizu", "voda"],
+  ["taberu", "jíst"],
+  ["nomu", "pít"],
+  ["nihon", "Japonsko"],
+  ["gakkou", "škola"],
+  ["tomodachi", "kamarád"],
+  ["sensei", "učitel"],
+  ["ookii", "velký"],
+  ["chiisai", "malý"],
+  ["kyou", "dnes"],
+  ["ashita", "zítra"],
+  ["iku", "jít"],
+  ["miru", "vidět"]
+];
+
+const mk = a => a.map(([ro, cs]) => ({ro, cs}));
+const $ = id => document.getElementById(id);
 
 /* romaji -> hiragana */
 const R={k:"かきくけこ",s:"さしすせそ",t:"たちつてと",n:"なにぬねの",h:"はひふへほ",m:"まみむめも",r:"らりるれろ",g:"がぎぐげご",z:"ざじずぜぞ",d:"だぢづでど",b:"ばびぶべぼ",p:"ぱぴぷぺぽ"};

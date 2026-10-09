@@ -20,41 +20,70 @@ if (ageElement) {
   ageElement.textContent = age;
 }
 
-const moodUsername = "VeightAdmin";
-const moodPassword = "ZipJeStrasneGay123_";
 const spotifyApiUrl = "https://veighttheavaligithubio.vercel.app/api/now-playing";
+const moodApiUrl = "https://veighttheavaligithubio.vercel.app/api/mood";
+const updateMoodApiUrl = "https://veighttheavaligithubio.vercel.app/api/update-mood";
 const moodElement = document.querySelector("#mood");
 const profilePicture = document.querySelector("#profilePicture");
 const listeningElement = document.querySelector(".listening-status span");
 
 if (moodElement && profilePicture) {
-  moodElement.textContent = localStorage.getItem("mood-status") || "vibing";
+  async function loadMood() {
+    try {
+      const response = await fetch(`${moodApiUrl}?t=${Date.now()}`, {
+        cache: "no-store"
+      });
+      if (!response.ok) {
+        throw new Error(`Mood request failed with status ${response.status}`);
+      }
 
-  function changeMood() {
-    if (prompt("Username:") !== moodUsername) {
-      alert("Invalid username or password.");
+      const data = await response.json();
+      moodElement.textContent = data.mood;
+    } catch (error) {
+      console.error("Could not load mood:", error);
+    }
+  }
+
+  async function changeMood() {
+    const username = prompt("Username:");
+    if (username === null) {
       return;
     }
 
-    if (prompt("Password to change mood:") !== moodPassword) {
-      alert("Invalid username or password.");
+    const password = prompt("Password:");
+    if (password === null) {
       return;
     }
 
     const mood = prompt("How are you feeling?");
-    if (mood === null) {
+    if (mood === null || !mood.trim()) {
       return;
     }
 
-    const newMood = mood.trim();
-    if (!newMood) {
-      return;
-    }
+    try {
+      const response = await fetch(updateMoodApiUrl, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          username,
+          password,
+          mood: mood.trim()
+        })
+      });
 
-    moodElement.textContent = newMood;
-    localStorage.setItem("mood-status", newMood);
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error || "Mood update failed.");
+      }
+
+      moodElement.textContent = data.mood;
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
+  loadMood();
+  setInterval(loadMood, 30000);
   profilePicture.addEventListener("click", changeMood);
   profilePicture.addEventListener("keydown", event => {
     if (event.key === "Enter" || event.key === " ") {
