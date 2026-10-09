@@ -192,6 +192,7 @@ h1 {
   z-index: 2;
   top: calc(100% + 32px);
   left: 101px;
+  white-space: nowrap;
   padding: 3px 7px;
   background: #000;
   color: var(--muted);
@@ -444,6 +445,11 @@ a.page-card:hover {
 }
 
 .social-section {
+  grid-column: 1 / -1;
+  max-width: 560px;
+}
+
+.furry-section {
   grid-column: 1 / -1;
   max-width: 560px;
 }
