@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import {sql} from "@vercel/postgres";
+import {neon} from "@neondatabase/serverless";
 
 const allowedOrigins = new Set([
   "https://www.veight.dev",
@@ -38,6 +38,15 @@ export default async function handler(request, response) {
     return;
   }
 
+  const connectionString =
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_URL_NON_POOLING ||
+    process.env.DATABASE_URL;
+  if (!connectionString) {
+    response.status(503).json({error: "Mood database is not configured."});
+    return;
+  }
+
   try {
     if (!process.env.MOOD_USERNAME || !process.env.MOOD_PASSWORD_HASH) {
       response.status(503).json({error: "Mood authentication is not configured."});
@@ -53,6 +62,7 @@ export default async function handler(request, response) {
       return;
     }
 
+    const sql = neon(connectionString);
     await sql`
       CREATE TABLE IF NOT EXISTS mood_status (
         id INTEGER PRIMARY KEY,
@@ -66,7 +76,7 @@ export default async function handler(request, response) {
       DO UPDATE SET mood = EXCLUDED.mood
       RETURNING mood
     `;
-    response.status(200).json({mood: result.rows[0].mood});
+    response.status(200).json({mood: result[0].mood});
   } catch (error) {
     console.error("Could not update mood:", error);
     response.status(500).json({error: "Could not update mood."});
