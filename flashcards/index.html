@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Japanese flashcards</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+<header><h1>単語カード</h1><div class="bar2" style="margin:0"><button class="btn" id="bStats">Statistics</button><button class="btn" id="bEdit">Edit packs</button></div></header>
+
+<section id="study">
+  <div class="bar2"><select id="packSel" aria-label="Pack"></select><button class="btn" id="dir" aria-label="Switch translation direction"></button></div>
+  <div class="seg" role="group" aria-label="Show on card"><button id="m-jp">Japanese</button><button id="m-both">Japanese + romaji</button><button id="m-ro">Romaji</button></div>
+  <div class="meta"><span id="cnt"></span><span id="pct"></span></div>
+  <div class="bar"><i id="bar"></i></div>
+  <button class="card" id="card" aria-live="polite"></button>
+  <div class="row" id="rate"><button class="dk" id="r4" disabled>Don't know</button><button class="hd" id="r3" disabled>Hard</button><button class="md" id="r2" disabled>Medium</button><button class="ez" id="r1" disabled>Easy</button></div>
+</section>
+
+<section id="edit" class="hidden">
+  <div class="bar2">
+    <select id="editSel" aria-label="Pack to edit"></select>
+    <button class="btn" id="newPack">New pack</button>
+    <button class="btn" id="renPack">Rename</button>
+    <button class="btn danger" id="delPack">Delete</button>
+  </div>
+  <form id="nameForm" class="bar2 hidden"><input id="nameInput" aria-label="Pack name" placeholder="Pack name" style="flex:1;min-width:140px;padding:9px;border:1px solid var(--line);border-radius:9px;background:var(--card)"><button class="btn primary" type="submit">Save</button><button class="btn" type="button" id="nameCancel">Cancel</button></form>
+  <div class="kp" id="msg" role="status"></div>
+  <div class="kp">Tip: put * after a word to write it in katakana, e.g. amerika* → アメリカ</div>
+  <div class="cols"><span>Romaji</span><span>Česky</span><span aria-hidden="true" style="width:36px"></span></div>
+  <div id="rows"></div>
+  <button class="btn primary" id="addCard">Add card</button>
+  <div class="io">
+    <h2>Import / export</h2>
+    <div class="bar2"><button class="btn" id="exPack">Export this pack</button><button class="btn" id="exAll">Export all packs</button><button class="btn" id="pick">Choose file…</button><button class="btn primary" id="imp">Import</button><input type="file" id="file" accept=".json,.csv,.tsv,.txt" hidden></div>
+    <textarea id="io" rows="6" aria-label="Export or import text" placeholder="Exported data appears here. To import, paste exported JSON or lines like konnichiwa,dobrý den and press Import."></textarea>
+  </div>
+</section>
+
+<section id="stats" class="hidden">
+  <div class="bar2"><select id="statSel" aria-label="Pack"></select><button class="btn" id="statDir" aria-label="Switch translation direction"></button></div>
+  <div class="kp" id="statNote"></div>
+  <div class="dist" id="dist"></div>
+  <div class="legend" id="legend"></div>
+  <div id="statRows"></div>
+</section>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

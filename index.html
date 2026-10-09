@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0e14">
+  <meta name="description" content="Veight's personal page.">
+  <title>Veight</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="wordmark" href="#home" aria-label="Veight home">Veight</a>
+      <nav aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#pages">Pages</a>
+        <a href="#socials">Links</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">Veight<span class="period">.</span></h1>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="orbit orbit-one"></div>
+          <div class="orbit orbit-two"></div>
+          <div class="orbit orbit-three"></div>
+          <span class="orbit-dot"></span>
+          <span class="art-star star-one">✳</span>
+          <span class="art-star star-two">✳</span>
+        </div>
+        <span class="hero-index" aria-hidden="true">01 — 03</span>
+      </section>
+
+      <div class="content-grid">
+        <section class="about-section" id="about" aria-labelledby="about-title">
+          <div class="section-heading">
+            <span class="section-number">01</span>
+            <h2 id="about-title">About</h2>
+          </div>
+          <div class="about-copy">
+            <p>19 years old, living in the Czech Republic, studying computer science at the Faculty of Informatics of the Masaryk University.</p>
+          </div>
+        </section>
+
+        <section class="pages-section" id="pages" aria-labelledby="pages-title">
+          <div class="section-heading">
+            <span class="section-number">02</span>
+            <h2 id="pages-title">Pages</h2>
+          </div>
+          <a class="page-card" href="flashcards/">
+            <span class="card-icon" aria-hidden="true">文</span>
+            <span class="card-copy">
+              <span class="card-category">STUDY</span>
+              <span class="card-title">Japanese flashcards</span>
+              <span class="card-description">Japanese vocabulary practice.</span>
+            </span>
+            <span class="card-arrow" aria-hidden="true">↗</span>
+          </a>
+        </section>
+
+        <section class="social-section" id="socials" aria-labelledby="social-title">
+          <div class="section-heading">
+            <span class="section-number">03</span>
+            <h2 id="social-title">Links</h2>
+          </div>
+          <div class="social-list">
+            <a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noreferrer">
+              <span>GitHub</span><span class="social-handle">@your-username</span><span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://www.instagram.com/YOUR_USERNAME/" target="_blank" rel="noreferrer">
+              <span>Instagram</span><span class="social-handle">@your-username</span><span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+            <a href="https://www.linkedin.com/in/YOUR_USERNAME/" target="_blank" rel="noreferrer">
+              <span>LinkedIn</span><span class="social-handle">Your Name</span><span class="social-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <a class="back-top" href="#home">Top ↑</a>
+    </footer>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
