@@ -169,6 +169,40 @@ h1 {
   background: var(--paper);
 }
 
+.mood-status {
+  position: absolute;
+  z-index: 2;
+  display: inline-block;
+  top: calc(100% + 8px);
+  left: 101px;
+  margin: 0;
+  padding: 3px 7px;
+  background: #000;
+  color: var(--muted);
+  font: 10px "DM Mono", monospace;
+  letter-spacing: 0.5px;
+}
+
+.mood-status span {
+  color: var(--accent, #71e3ed);
+}
+
+.listening-status {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 32px);
+  left: 101px;
+  padding: 3px 7px;
+  background: #000;
+  color: var(--muted);
+  font: 10px "DM Mono", monospace;
+  letter-spacing: 0.5px;
+}
+
+.listening-status span {
+  color: var(--accent, #71e3ed);
+}
+
 .name-highlight {
   text-decoration: underline;
   text-decoration-color: var(--green);
@@ -475,6 +509,51 @@ a.page-card:hover {
   color: var(--ink);
 }
 
+.paw-trail {
+  width: 18px;
+  height: 18px;
+  position: fixed;
+  z-index: 10;
+  pointer-events: none;
+  color: var(--green-dark);
+  opacity: 0.28;
+  animation: paw-fade 550ms ease-out forwards;
+  transition: opacity 100ms linear;
+}
+
+.paw-trail::before {
+  content: "";
+  width: 10px;
+  height: 8px;
+  position: absolute;
+  left: 4px;
+  bottom: 1px;
+  border-radius: 48% 48% 45% 45% / 58% 58% 42% 42%;
+  background: currentColor;
+}
+
+.paw-trail::after {
+  content: "";
+  width: 4px;
+  height: 5px;
+  position: absolute;
+  top: 2px;
+  left: 1px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 4px -2px currentColor, 9px -2px currentColor, 13px 1px currentColor;
+}
+
+@keyframes paw-fade {
+  0% {
+    transform: scale(0.7) rotate(-12deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(12deg) translateY(-7px);
+  }
+}
+
 @media (max-width: 760px) {
   .page-shell {
     width: min(100% - 40px, 560px);
@@ -581,6 +660,16 @@ a.page-card:hover {
 
   .hero-name {
     margin-left: 60px;
+  }
+
+  .mood-status {
+    top: calc(100% + 16px);
+    left: 63px;
+  }
+
+  .listening-status {
+    top: calc(100% + 40px);
+    left: 63px;
   }
 
   .hero-intro {
