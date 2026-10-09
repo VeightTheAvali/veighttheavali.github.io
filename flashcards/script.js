@@ -85,7 +85,14 @@ function render(){
   c.innerHTML='<div class="small"></div><div class="front"></div><div class="ans"><div class="small"></div><div class="main"></div></div><div class="hint"></div>';
   const top=st.mode==="both"?roDisp(cur.ro):"",main=st.mode==="ro"?roDisp(cur.ro):toKana(cur.ro),an=c.children[2];
   an.className="ans"+(rev?" jpans":"");
-  if(rev)c.children[1].textContent=cur.cs;else{c.children[0].textContent=top;c.children[1].textContent=main}
+  if(rev){
+    c.children[1].textContent=cur.cs;
+    c.children[1].classList.remove("jp");
+  }else{
+    c.children[0].textContent=top;
+    c.children[1].textContent=main;
+    c.children[1].classList.add("jp");
+  }
   if(shown){an.children[0].textContent=rev?top:"";an.children[1].textContent=rev?main:(cur.cs||"(empty)")}
   else c.children[3].textContent="Tap to show the answer";
   rb.forEach(b=>b.disabled=!shown)}

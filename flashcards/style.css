@@ -4,7 +4,7 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 :root[data-theme="dark"]{--bg:#101626;--card:#1a2238;--ink:#e8ecf6;--mute:#9aa6c3;--line:#2c3757;--accent:#8fa9e8;--good:#6fc095;--again:#e88a77}
 *{box-sizing:border-box}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Zen Kaku Gothic New",system-ui,sans-serif}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 "Noto Sans",system-ui,sans-serif}
 main{max-width:600px;margin:0 auto;padding:20px 16px 40px}
 header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px}
 h1{font:700 22px "Shippori Mincho",serif;margin:0}
@@ -17,7 +17,8 @@ button,select,input{font:inherit;color:var(--ink)}
 .bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:16px}
 .bar i{display:block;height:100%;background:var(--good);width:0;transition:width .3s}
 .card{width:100%;min-height:290px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer}
-.front{font:700 clamp(36px,11vw,60px)/1.2 "Shippori Mincho",serif;overflow-wrap:anywhere}
+.front{font:700 clamp(36px,11vw,60px)/1.2 "Noto Sans",system-ui,sans-serif;overflow-wrap:anywhere}
+.front.jp{font-family:"Shippori Mincho",serif}
 .hint{color:var(--mute);font-size:14px;margin-top:14px}
 .ans{font-size:30px;color:var(--accent);margin-top:14px;overflow-wrap:anywhere}
 .row{display:flex;gap:10px;margin-top:14px}
@@ -32,7 +33,7 @@ button,select,input{font:inherit;color:var(--ink)}
 .cols{color:var(--mute);font-size:14px;margin-bottom:6px}
 .er{margin-bottom:4px}
 .ec{margin-bottom:12px}
-.kp{font:500 15px "Shippori Mincho",serif;color:var(--mute);padding-left:4px;min-height:1.5em}
+.kp{font:500 15px "Noto Sans",system-ui,sans-serif;color:var(--mute);padding-left:4px;min-height:1.5em}
 .seg{display:flex;gap:6px;margin-bottom:12px}
 .seg button{flex:1;padding:9px 6px;border:1px solid var(--line);background:transparent;border-radius:9px;cursor:pointer;font-size:14px}
 .seg button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
