@@ -1,10 +1,18 @@
 import bcrypt from "bcryptjs";
 import {sql} from "@vercel/postgres";
 
-const allowedOrigin = "https://www.veight.dev";
+const allowedOrigins = new Set([
+  "https://www.veight.dev",
+  "https://veight.dev",
+  "http://www.veight.dev",
+  "http://veight.dev"
+]);
 
 export default async function handler(request, response) {
-  response.setHeader("Access-Control-Allow-Origin", allowedOrigin);
+  const origin = request.headers.origin;
+  if (allowedOrigins.has(origin)) {
+    response.setHeader("Access-Control-Allow-Origin", origin);
+  }
   response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   response.setHeader("Access-Control-Allow-Headers", "Content-Type");
   response.setHeader("Cache-Control", "no-store");
