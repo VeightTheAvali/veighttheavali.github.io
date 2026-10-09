@@ -70,7 +70,9 @@ async function updateCurrentlyPlaying() {
   }
 
   try {
-    const response = await fetch(spotifyApiUrl);
+    const response = await fetch(`${spotifyApiUrl}?t=${Date.now()}`, {
+      cache: "no-store"
+    });
     if (!response.ok) {
       throw new Error(`Spotify request failed with status ${response.status}`);
     }
