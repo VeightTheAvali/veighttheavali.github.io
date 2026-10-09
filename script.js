@@ -22,8 +22,10 @@ if (ageElement) {
 
 const moodUsername = "VeightAdmin";
 const moodPassword = "ZipJeStrasneGay123_";
+const spotifyApiUrl = "";
 const moodElement = document.querySelector("#mood");
 const profilePicture = document.querySelector("#profilePicture");
+const listeningElement = document.querySelector(".listening-status span");
 
 if (moodElement && profilePicture) {
   moodElement.textContent = localStorage.getItem("mood-status") || "vibing";
@@ -61,6 +63,29 @@ if (moodElement && profilePicture) {
     }
   });
 }
+
+async function updateCurrentlyPlaying() {
+  if (!spotifyApiUrl || !listeningElement) {
+    return;
+  }
+
+  try {
+    const response = await fetch(spotifyApiUrl);
+    if (!response.ok) {
+      throw new Error(`Spotify request failed with status ${response.status}`);
+    }
+
+    const track = await response.json();
+    listeningElement.textContent = track.playing
+      ? `${track.title} — ${track.artist}`
+      : "nothing right now";
+  } catch (error) {
+    console.error("Could not load Spotify status:", error);
+  }
+}
+
+updateCurrentlyPlaying();
+setInterval(updateCurrentlyPlaying, 30000);
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const paws = new Set();
