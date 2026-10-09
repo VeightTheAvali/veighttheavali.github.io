@@ -666,8 +666,9 @@ h1 {
 
 .content-grid {
   grid-template-columns: minmax(0, 1fr);
-  max-width: 560px;
-  justify-items: center;
+  max-width: 500px;
+  margin: 0 auto;
+  justify-items: stretch;
   column-gap: 72px;
   row-gap: 42px;
   padding: 40px 0 52px;
@@ -677,14 +678,13 @@ h1 {
 .pages-section,
 .social-section {
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 .section-heading {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 14px;
   margin-bottom: 19px;
 }
 
@@ -696,14 +696,14 @@ h1 {
 .page-card {
   position: relative;
   min-height: 102px;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 14px;
   padding: 15px;
   background: transparent;
 }
 
 .card-copy {
-  text-align: center;
+  text-align: left;
 }
 
 a.page-card:hover {
@@ -745,17 +745,19 @@ a.page-card:hover {
 }
 
 .social-intro {
-  margin-right: auto;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .social-list {
-  margin-right: auto;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .social-list a {
-  text-align: center;
+  text-align: left;
+}
+
+.edit-note {
+  margin-left: 0;
 }
 
 .social-list a:hover,
@@ -770,6 +772,56 @@ a.page-card:hover {
 
 .site-footer .wordmark {
   color: var(--ink);
+}
+
+.error-page {
+  min-height: calc(100vh - 152px);
+  display: grid;
+  place-items: center;
+  padding: 72px 0;
+  text-align: left;
+}
+
+.error-content {
+  width: 100%;
+  max-width: 500px;
+}
+
+.error-code {
+  margin: 0 0 14px;
+  color: #9c85ff;
+  font: 11px "DM Mono", monospace;
+  letter-spacing: 1.2px;
+}
+
+.error-title {
+  margin-bottom: 16px;
+  font: 700 clamp(42px, 7vw, 64px)/1.1 "Manrope", sans-serif;
+  letter-spacing: -3px;
+}
+
+.error-copy {
+  max-width: 380px;
+  margin-bottom: 28px;
+  color: var(--muted);
+}
+
+.error-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.error-link span {
+  color: #71e3ed;
+  font-size: 18px;
+  transition: transform 160ms ease;
+}
+
+.error-link:hover span {
+  transform: translateX(-3px);
 }
 
 @media (max-width: 760px) {
@@ -787,6 +839,11 @@ a.page-card:hover {
 @media (max-width: 560px) {
   .hero-copy {
     padding: 46px 0 52px;
+  }
+
+  .error-page {
+    min-height: calc(100vh - 140px);
+    padding: 52px 0;
   }
 
   .content-grid {
