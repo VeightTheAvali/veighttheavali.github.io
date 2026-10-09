@@ -14,18 +14,17 @@ export default async function handler(request, response) {
   }
   response.setHeader("Cache-Control", "no-store");
 
-  const connectionString =
-    process.env.POSTGRES_URL ||
-    process.env.POSTGRES_URL_NON_POOLING ||
-    process.env.DATABASE_URL;
-  if (!connectionString) {
-    response.status(503).json({error: "Mood database is not configured."});
-    return;
-  }
-
-  const sql = neon(connectionString);
-
   try {
+    const connectionString =
+      process.env.POSTGRES_URL ||
+      process.env.POSTGRES_URL_NON_POOLING ||
+      process.env.DATABASE_URL;
+    if (!connectionString) {
+      response.status(503).json({error: "Mood database is not configured."});
+      return;
+    }
+
+    const sql = neon(connectionString);
     await sql`
       CREATE TABLE IF NOT EXISTS mood_status (
         id INTEGER PRIMARY KEY,
@@ -36,6 +35,6 @@ export default async function handler(request, response) {
     response.status(200).json({mood: result[0]?.mood || "vibing"});
   } catch (error) {
     console.error("Could not read mood:", error);
-    response.status(500).json({error: "Could not load mood."});
+    response.status(503).json({error: "Mood database could not be reached."});
   }
 }

@@ -38,16 +38,16 @@ export default async function handler(request, response) {
     return;
   }
 
-  const connectionString =
-    process.env.POSTGRES_URL ||
-    process.env.POSTGRES_URL_NON_POOLING ||
-    process.env.DATABASE_URL;
-  if (!connectionString) {
-    response.status(503).json({error: "Mood database is not configured."});
-    return;
-  }
-
   try {
+    const connectionString =
+      process.env.POSTGRES_URL ||
+      process.env.POSTGRES_URL_NON_POOLING ||
+      process.env.DATABASE_URL;
+    if (!connectionString) {
+      response.status(503).json({error: "Mood database is not configured."});
+      return;
+    }
+
     if (!process.env.MOOD_USERNAME || !process.env.MOOD_PASSWORD_HASH) {
       response.status(503).json({error: "Mood authentication is not configured."});
       return;
@@ -79,6 +79,6 @@ export default async function handler(request, response) {
     response.status(200).json({mood: result[0].mood});
   } catch (error) {
     console.error("Could not update mood:", error);
-    response.status(500).json({error: "Could not update mood."});
+    response.status(503).json({error: "Mood database could not be reached."});
   }
 }
