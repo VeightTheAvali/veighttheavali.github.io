@@ -38,16 +38,27 @@ export default async function handler(request, response) {
     return;
   }
 
-  const passwordMatches = await bcrypt.compare(
-    password,
-    process.env.MOOD_PASSWORD_HASH || ""
-  );
-  if (username !== process.env.MOOD_USERNAME || !passwordMatches) {
-    response.status(401).json({error: "Invalid username or password."});
-    return;
-  }
-
   try {
+    if (!process.env.MOOD_USERNAME || !process.env.MOOD_PASSWORD_HASH) {
+      response.status(503).json({error: "Mood authentication is not configured."});
+      return;
+    }
+
+    const passwordMatches = await bcrypt.compare(
+      password,
+      process.env.MOOD_PASSWORD_HASH
+    );
+    if (username !== process.env.MOOD_USERNAME || !passwordMatches) {
+      response.status(401).json({error: "Invalid username or password."});
+      return;
+    }
+
+    await sql`
+      CREATE TABLE IF NOT EXISTS mood_status (
+        id INTEGER PRIMARY KEY,
+        mood TEXT NOT NULL
+      )
+    `;
     const result = await sql`
       INSERT INTO mood_status (id, mood)
       VALUES (1, ${mood.trim()})

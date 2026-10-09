@@ -15,6 +15,12 @@ export default async function handler(request, response) {
   response.setHeader("Cache-Control", "no-store");
 
   try {
+    await sql`
+      CREATE TABLE IF NOT EXISTS mood_status (
+        id INTEGER PRIMARY KEY,
+        mood TEXT NOT NULL
+      )
+    `;
     const result = await sql`SELECT mood FROM mood_status WHERE id = 1`;
     response.status(200).json({mood: result.rows[0]?.mood || "vibing"});
   } catch (error) {
