@@ -28,11 +28,19 @@ export default async function handler(request, response) {
     await sql`
       CREATE TABLE IF NOT EXISTS mood_status (
         id INTEGER PRIMARY KEY,
-        mood TEXT NOT NULL
+        mood TEXT NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `;
-    const result = await sql`SELECT mood FROM mood_status WHERE id = 1`;
-    response.status(200).json({mood: result[0]?.mood || "vibing"});
+    await sql`
+      ALTER TABLE mood_status
+      ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    `;
+    const result = await sql`SELECT mood, updated_at FROM mood_status WHERE id = 1`;
+    response.status(200).json({
+      mood: result[0]?.mood || "vibing",
+      updatedAt: result[0]?.updated_at || null
+    });
   } catch (error) {
     console.error("Could not read mood:", error);
     response.status(503).json({error: "Mood database could not be reached."});

@@ -66,17 +66,25 @@ export default async function handler(request, response) {
     await sql`
       CREATE TABLE IF NOT EXISTS mood_status (
         id INTEGER PRIMARY KEY,
-        mood TEXT NOT NULL
+        mood TEXT NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
       )
     `;
-    const result = await sql`
-      INSERT INTO mood_status (id, mood)
-      VALUES (1, ${mood.trim()})
-      ON CONFLICT (id)
-      DO UPDATE SET mood = EXCLUDED.mood
-      RETURNING mood
+    await sql`
+      ALTER TABLE mood_status
+      ADD COLUMN IF NOT EXISTS updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     `;
-    response.status(200).json({mood: result[0].mood});
+    const result = await sql`
+      INSERT INTO mood_status (id, mood, updated_at)
+      VALUES (1, ${mood.trim()}, NOW())
+      ON CONFLICT (id)
+      DO UPDATE SET mood = EXCLUDED.mood, updated_at = NOW()
+      RETURNING mood, updated_at
+    `;
+    response.status(200).json({
+      mood: result[0].mood,
+      updatedAt: result[0].updated_at
+    });
   } catch (error) {
     console.error("Could not update mood:", error);
     response.status(503).json({error: "Mood database could not be reached."});

@@ -24,8 +24,22 @@ const spotifyApiUrl = "https://veighttheavaligithubio.vercel.app/api/now-playing
 const moodApiUrl = "https://veighttheavaligithubio.vercel.app/api/mood";
 const updateMoodApiUrl = "https://veighttheavaligithubio.vercel.app/api/update-mood";
 const moodElement = document.querySelector("#mood");
+const moodUpdatedElement = document.querySelector("#moodUpdated");
 const profilePicture = document.querySelector("#profilePicture");
+const listeningLink = document.querySelector("#listeningLink");
 const listeningElement = document.querySelector(".listening-status span");
+const listeningProgressElement = document.querySelector(".listening-progress");
+let currentTrack = null;
+let moodUpdatedAt = null;
+
+function updateMoodTimestamp() {
+  if (!moodUpdatedElement || !moodUpdatedAt) {
+    return;
+  }
+
+  const minutes = Math.max(0, Math.floor((Date.now() - moodUpdatedAt.getTime()) / 60000));
+  moodUpdatedElement.textContent = `updated ${minutes === 0 ? "just now" : `${minutes} minute${minutes === 1 ? "" : "s"} ago`}`;
+}
 
 if (moodElement && profilePicture) {
   async function loadMood() {
@@ -39,6 +53,8 @@ if (moodElement && profilePicture) {
 
       const data = await response.json();
       moodElement.textContent = data.mood;
+      moodUpdatedAt = data.updatedAt ? new Date(data.updatedAt) : null;
+      updateMoodTimestamp();
     } catch (error) {
       console.error("Could not load mood:", error);
     }
@@ -77,6 +93,8 @@ if (moodElement && profilePicture) {
       }
 
       moodElement.textContent = data.mood;
+      moodUpdatedAt = data.updatedAt ? new Date(data.updatedAt) : new Date();
+      updateMoodTimestamp();
     } catch (error) {
       alert(error.message);
     }
@@ -84,6 +102,7 @@ if (moodElement && profilePicture) {
 
   loadMood();
   setInterval(loadMood, 30000);
+  setInterval(updateMoodTimestamp, 30000);
   profilePicture.addEventListener("click", changeMood);
   profilePicture.addEventListener("keydown", event => {
     if (event.key === "Enter" || event.key === " ") {
@@ -107,16 +126,49 @@ async function updateCurrentlyPlaying() {
     }
 
     const track = await response.json();
-    listeningElement.textContent = track.playing
-      ? `${track.title} — ${track.artist}`
-      : "nothing right now";
+    if (track.playing) {
+      listeningElement.textContent = `${track.title} — ${track.artist}`;
+      listeningLink.href = track.url;
+      listeningLink.removeAttribute("aria-disabled");
+      currentTrack = {
+        durationMs: track.durationMs,
+        progressMs: track.progressMs,
+        receivedAt: Date.now()
+      };
+      updateListeningProgress();
+    } else {
+      listeningElement.textContent = "nothing right now";
+      listeningLink.removeAttribute("href");
+      listeningLink.setAttribute("aria-disabled", "true");
+      currentTrack = null;
+      updateListeningProgress();
+    }
   } catch (error) {
     console.error("Could not load Spotify status:", error);
   }
 }
 
+function updateListeningProgress() {
+  if (!listeningProgressElement) {
+    return;
+  }
+
+  if (!currentTrack || !currentTrack.durationMs) {
+    listeningProgressElement.style.width = "0%";
+    return;
+  }
+
+  const elapsedMs = Date.now() - currentTrack.receivedAt;
+  const progress = Math.min(
+    100,
+    ((currentTrack.progressMs + elapsedMs) / currentTrack.durationMs) * 100
+  );
+  listeningProgressElement.style.width = `${progress}%`;
+}
+
 updateCurrentlyPlaying();
 setInterval(updateCurrentlyPlaying, 30000);
+setInterval(updateListeningProgress, 1000);
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const paws = new Set();

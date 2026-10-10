@@ -181,15 +181,21 @@ h1 {
   color: var(--muted);
   font: 10px "DM Mono", monospace;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 .mood-status span {
   color: var(--accent, #71e3ed);
 }
 
+.mood-status #moodUpdated {
+  color: var(--muted);
+}
+
 .listening-status {
   position: absolute;
   z-index: 2;
+  overflow: hidden;
   top: calc(100% + 32px);
   left: 101px;
   white-space: nowrap;
@@ -202,6 +208,27 @@ h1 {
 
 .listening-status span {
   color: var(--accent, #71e3ed);
+}
+
+.listening-status a {
+  color: inherit;
+}
+
+.listening-status a:hover,
+.listening-status a:focus-visible {
+  color: #71e3ed;
+}
+
+.listening-progress {
+  display: block;
+  width: 0;
+  height: 1px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #71e3ed;
+  transition: width 900ms linear;
 }
 
 .name-highlight {

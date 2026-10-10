@@ -43,11 +43,14 @@ export default async function handler(request, response) {
     return;
   }
 
-  const item = (await playingResponse.json()).item;
+  const playingData = await playingResponse.json();
+  const item = playingData.item;
   response.status(200).json({
     playing: true,
     title: item.name,
     artist: item.artists.map(artist => artist.name).join(", "),
+    progressMs: playingData.progress_ms,
+    durationMs: item.duration_ms,
     url: item.external_urls.spotify
   });
 }

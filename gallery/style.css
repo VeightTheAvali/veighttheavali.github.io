@@ -140,11 +140,25 @@ h2 {
   border: 0;
   background: transparent;
   cursor: zoom-in;
+  overflow: hidden;
 }
 
 .art-card img {
   aspect-ratio: 1 / 1;
   object-fit: cover;
+  transition: transform 220ms ease, filter 220ms ease;
+}
+
+.art-image-link:hover img,
+.art-image-link:focus-visible img {
+  transform: scale(1.035);
+  filter: brightness(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-card img {
+    transition: none;
+  }
 }
 
 .art-info {
