@@ -6,6 +6,12 @@
 */
 const sfwArt = [
   {
+    image: "../images/gallery/veightref.png",
+    title: "Reference sheet",
+    artist: "monochrome",
+    artistUrl: "https://monochromeblackalpha.portfoliobox.net/"
+  },
+  {
     image: "../images/gallery/veightvilem.png",
     title: "Physical Badge",
     artist: "Vilém",
@@ -19,7 +25,7 @@ const sfwArt = [
   },
   {
     image: "../images/gallery/oo.gif",
-    title: ":o.o",
+    title: "o.o",
     artist: "Choccky",
     artistUrl: "https://milkchoccky.github.io/commsheets/"
   },
@@ -54,10 +60,10 @@ const sfwArt = [
     artistUrl: "https://linktr.ee/chiilliipepper"
   },
   {
-    image: "../images/gallery/blue.png",
-    title: "👁️",
-    artist: "kwujick",
-    artistUrl: "https://www.instagram.com/kwujick.art/"
+    image: "../images/gallery/niceopinion.jpg",
+    title: "Nice opinion bro",
+    artist: "idk :sob:",
+    artistUrl: "https://www.google.com"
   },
   {
     image: "../images/gallery/cry.png",
