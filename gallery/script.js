@@ -18,6 +18,12 @@ const sfwArt = [
     artistUrl: "https://www.instagram.com/vilem.the.sharkmoth/"
   },
   {
+    image: "../images/gallery/VeightRage.png",
+    title: "Me when speedrun",
+    artist: "Batsy",
+    artistUrl: "https://www.instagram.com/batsy__bat/"
+  },
+  {
     image: "../images/gallery/avali3.png",
     title: ":3",
     artist: "tagtherobot",
